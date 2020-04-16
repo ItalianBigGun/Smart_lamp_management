@@ -1,0 +1,20 @@
+package my; 
+message Node 
+{ 
+   required string operation = 1; 
+   required Message m_message = 2; 
+}
+message Message
+{
+	optional string id = 1;
+	optional string password = 2;
+	optional string error = 3;
+	repeated DevNode dev = 4;
+	
+}
+message DevNode
+{
+	required string name = 1;
+	optional string status = 2;
+	optional string ISDN = 3;
+}
