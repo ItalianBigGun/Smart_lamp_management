@@ -1,8 +1,8 @@
 package my; 
 message Node 
 { 
-   required string operation = 1; 
-   required Message m_message = 2; 
+	required string operation = 1; 
+	required Message m_message = 2; 
 }
 message Message
 {
