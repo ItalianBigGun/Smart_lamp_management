@@ -57,12 +57,12 @@ bool SQL::connect_to_Mysql()
 
     if (this != nullptr && mysql_real_connect(this,host,user,pswd,database,port,nullptr,0))
     {
-        cout << "connect_to_Mysql Success" << endl;
+        cout << "Connect_to_Mysql Success" << endl;
         return true;
     }
     else
     {
-        cout << "connect_to_Mysql Failed "<<mysql_error(this)<<" from:" <<boost::this_thread::get_id()<< endl;
+        cout << "Connect_to_Mysql Failed "<<mysql_error(this)<<" from:" <<boost::this_thread::get_id()<< endl;
         return false;
     }
 }
@@ -77,12 +77,12 @@ bool SQL::operate_Mysql_Modify(const char *Mysql_Sentence)
 
     if (ret == 0)
     {
-        cout << "Modify Success" << endl;
+        cout << "Operate_Mysql Modify Success" << endl;
         return true;
     }
     else
     {
-        cout << "Modify Failed!" << mysql_errno(this)<<":"<<mysql_error(this) << "from:" <<boost::this_thread::get_id()<<endl;
+        cout << "Operate_Mysql Modify Failed!" << mysql_errno(this)<<":"<<mysql_error(this) << "from:" <<boost::this_thread::get_id()<<endl;
         return false;
         //cout << mysql_error(&mysql) << endl;
     }

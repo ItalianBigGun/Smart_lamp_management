@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>onlight.png</file>
+        <file>off.png</file>
+        <file>offlight.png</file>
+        <file>on.png</file>
+        <file>红.jpg</file>
+        <file>绿.jpg</file>
+        <file>蓝.jpg</file>
+        <file>黄.jpg</file>
+        <file>addlight.png</file>
+        <file>return.png</file>
+        <file>deletelight.png</file>
+        <file>search.png</file>
+        <file>setlight.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>off.png</file>
+        <file>on.png</file>
+        <file>onlight.png</file>
+        <file>offlight.png</file>
+        <file>return.png</file>
+        <file>setlight.png</file>
+        <file>offline.png</file>
+    </qresource>
+</RCC>

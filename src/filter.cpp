@@ -1,6 +1,5 @@
 #include "filter.h"
 #include <boost/format.hpp>
-#include "CJsonObject.hpp"
 
 Filter::Filter()
 {

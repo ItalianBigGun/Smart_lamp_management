@@ -16,11 +16,6 @@ using namespace boost::asio;
 typedef boost::shared_ptr<ip::tcp::socket> sock_ptr;
 using namespace std;
 
-//boost::asio::io_context io_s; 
-//boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), 9527);
-//boost::asio::ip::tcp::endpoint devendpoint(boost::asio::ip::tcp::v4(), 9526); 
-//boost::asio::ip::tcp::acceptor acceptor(io_s, endpoint);
-//boost::asio::ip::tcp::acceptor devacceptor(io_s, devendpoint);
 using Socket = boost::asio::ip::tcp::socket;
 using socket_ptr = boost::shared_ptr<boost::asio::ip::tcp::socket>;
 //Socketqueue socketq(30);
@@ -425,8 +420,52 @@ public:
 
 };
 /////////////////////////////////
+int main()
+{
+    std::cout<<"lv1.0"<<std::endl;
+    std::cout << "初始化数据库" << std::endl;//初始化数据库
+    if (0 == mysql_library_init(0, NULL, NULL))
+        cout << "mysql_library_init() succeed" << endl;
+    else
+        cout << "mysql_library_init() failed" << endl;
+    mysql.connect_to_Mysql();
 
+    try
+    {
+        server_c *sc_ptr = new server_c(9527);
+        server_d *sd_ptr = new server_d(9526);
 
+        boost::thread t1(boost::bind(&server_c::accept,sc_ptr));
+        boost::thread t2(boost::bind(&server_d::accept,sd_ptr));
+        char c;
+        while((c=getchar())){
+            if(c=='e'||c=='E'){
+                sc_ptr->stop();
+                sd_ptr->stop();
+                std::cout<<"stop finish"<<std::endl;
+                t1.join();
+                t2.join();
+                std::cout<<"join finish"<<std::endl;
+                delete sc_ptr;
+                delete sd_ptr;
+                //std::cout<<"delete finish"<<std::endl;
+                break;
+            }
+        }
+    std::cout<<"1"<<std::endl;
+    }
+    catch (std::exception &e)
+    {
+        cout<<"server:"<<e.what()<<endl;
+    }
+    
+        
+    getchar();
+
+    mysql_library_end();
+    std::cout<<"happy end"<<std::endl;
+    return 0;
+}
 
 
 //生产者函数：用于接收连接进来的socket，验证socket，成功则入队
@@ -603,72 +642,8 @@ void func_producter_for_dev()
 
 #endif
 
-int main()
-{
-    std::cout<<"lv1.0"<<std::endl;
-    std::cout << "初始化数据库" << std::endl;//初始化数据库
-    if (0 == mysql_library_init(0, NULL, NULL))
-        cout << "mysql_library_init() succeed" << endl;
-    else
-        cout << "mysql_library_init() failed" << endl;
-    mysql.connect_to_Mysql();
-
-    //boost::thread t1(boost::bind(&func_comstmer));
-    //boost::thread t2(boost::bind(&func_comstmer));
-    //boost::thread t3(boost::bind(&func_server));
-    //boost::thread t4(boost::bind(&server::start,&s));
-    //boost::thread t5(boost::bind(&func_producter_for_dev));
-    try
-    {
-        //boost::shared_ptr<server_c> sc_ptr(new server_c(9527));
-        //boost::shared_ptr<server_d> sd_ptr(new server_d(9526));
-        server_c *sc_ptr = new server_c(9527);
-        server_d *sd_ptr = new server_d(9526);
-        //boost::thread t1([](){server_c srv(9527);srv.accept();});
-        //boost::thread t1(boost::bind(&server_c::accept,sc_ptr));
-        boost::thread t1(boost::bind(&server_c::accept,sc_ptr));
-        boost::thread t2(boost::bind(&server_d::accept,sd_ptr));
-        char c;
-        while((c=getchar())){
-            if(c=='e'||c=='E'){
-                sc_ptr->stop();
-                sd_ptr->stop();
-                std::cout<<"stop finish"<<std::endl;
-                t1.join();
-                t2.join();
-                std::cout<<"join finish"<<std::endl;
-                delete sc_ptr;
-                delete sd_ptr;
-                //std::cout<<"delete finish"<<std::endl;
-                break;
-            }
-        }
-    std::cout<<"1"<<std::endl;
-    }
-    catch (std::exception &e)
-    {
-        cout<<"server:"<<e.what()<<endl;
-    }
-    
-        
-    getchar();
-
-    mysql_library_end();
-    std::cout<<"happy end"<<std::endl;
-    return 0;
-}
-
 
 //
-
-
-
-
-
-
-
-
-
 /*
 
 struct cjson
